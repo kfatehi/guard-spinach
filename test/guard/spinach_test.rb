@@ -29,6 +29,16 @@ describe Guard::Spinach do
         subject.run_on_change(paths)
       end
     end
+    describe "with tags" do
+      let(:options) do
+        { tags: ['@javascript', "~@disabled"] }
+      end
+      it "runs with tags correctly configured" do
+        Guard::Spinach::Runner.any_instance.expects(:system).with(
+          "spinach #{paths.join(' ')} -t #{options[:tags].join(',')}")
+        subject.run_on_change(paths)
+      end
+    end
   end
   describe "#run_all" do
     it "fires run on a runner" do
