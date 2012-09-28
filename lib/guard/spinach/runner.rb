@@ -3,8 +3,11 @@ module Guard
     class Runner
       attr_reader :paths
 
-      def initialize(paths)
+      def initialize(paths, opts=nil)
         @paths = paths
+        if opts
+          @generate = true if opts[:generate]
+        end
       end
 
       def run
@@ -14,7 +17,7 @@ module Guard
       end
 
       def run_command
-        "spinach #{paths.join(" ")}"
+        "spinach #{paths.join(" ")}#{' -g' if @generate}"
       end
     end
   end
