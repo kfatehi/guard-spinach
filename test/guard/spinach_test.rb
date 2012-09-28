@@ -74,5 +74,16 @@ describe Guard::Spinach do
         subject.start
       end
     end
+    describe "with all options utilized" do
+      let(:options) do
+        { generate: true, all_on_start: true,
+          backtrace: true, tags: ['@javascript', "~@disabled"] }
+      end
+      it "runs with step definition file generation enabled" do
+        Guard::Spinach::Runner.any_instance.expects(:system).with(
+          "spinach  -g -t @javascript,~@disabled -b")
+        subject.start
+      end
+    end
   end
 end
