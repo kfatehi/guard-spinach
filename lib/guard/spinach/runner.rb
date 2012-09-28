@@ -17,7 +17,7 @@ module Guard
       def run_command
         cmd = "spinach #{paths.join(" ")}"
         cmd << ' -g' if @opts[:generate]
-        cmd << " -t #{@opts[:tags].join(',')}" if @opts[:tags]
+        cmd << " -t #{@opts[:tags].join(',')}" if @opts[:tags] && @opts[:tags].any?
         cmd << ' -b' if @opts[:backtrace]
         cmd
       end
